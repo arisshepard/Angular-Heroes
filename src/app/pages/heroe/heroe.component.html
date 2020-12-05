@@ -1,0 +1,85 @@
+<h1>
+  Héroe <small>{{ nombreHeroe }}</small>
+</h1>
+<hr />
+<div class="row text-right">
+  <div class="col">
+    <button routerLink="/heroes" class="btn btn-danger">
+      <i class="fa fa-arrow-left"></i> Regresar
+    </button>
+  </div>
+</div>
+
+<div class="row animate__animated animate__fadeIn animate__faster">
+  <div class="col">
+    <!-- <form #f="ngForm" (ngSubmit)="guardar(f)"> -->
+    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+      <div class="form-group">
+        <label>Firebase ID</label>
+        <input
+          class="form-control"
+          placeholder="Firebase ID"
+          type="text"
+          formControlName="id"
+        />
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input
+          class="form-control"
+          placeholder="Nombre del héroe"
+          required
+          type="text"
+          formControlName="nombre"
+          [class.is-invalid]="campoNoValido('nombre')"
+        />
+        <small *ngIf="campoNoValido('nombre')" class="text-danger"
+          >El nombre es obligatorio</small
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Poder</label>
+        <input
+          class="form-control"
+          placeholder="Poder del héroe"
+          type="text"
+          formControlName="poder"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Estado</label>
+        <br />
+        <button
+          *ngIf="heroeVivo"
+          (click)="setHeroeVivo()"
+          class="btn btn-outline-success w-50"
+          type="button"
+        >
+          <i class="fa fa-smile-wink"></i> Vivo
+        </button>
+        <button
+          *ngIf="!heroeVivo"
+          (click)="setHeroeVivo()"
+          class="btn btn-outline-danger w-50"
+          type="button"
+        >
+          <i class="fa fa-dizzy"></i> Muerto
+        </button>
+      </div>
+
+      <div class="form-group text-right">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-save"></i> Guardar
+        </button>
+      </div>
+    </form>
+
+    <!-- <hr />
+
+    <pre>{{ formulario.getRawValue() | json }}</pre> -->
+  </div>
+</div>
